@@ -325,50 +325,50 @@
 
   /* ---------- Documentos ---------- */
   .documentos{ background:var(--white); }
-  .doc-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
+  .doc-list{
+    display:flex;
+    flex-direction:column;
+    border-top:1px solid rgba(24,39,66,.16);
+  }
+  .doc-row{
+    display:flex;
+    align-items:center;
     gap:24px;
+    padding:26px 4px;
+    border-bottom:1px solid rgba(24,39,66,.14);
+    transition:background .25s ease;
   }
-  .doc-card{
-    background:var(--paper);
-    border:1px solid rgba(24,39,66,.14);
-    padding:30px 26px;
-    display:flex; flex-direction:column; gap:16px;
-    transition:border-color .25s ease, transform .25s ease;
-  }
-  .doc-card.is-ready:hover{ border-color:var(--gold); transform:translateY(-3px); }
-  .doc-card .doc-icon{
-    width:44px; height:44px;
+  .doc-row.is-ready:hover{ background:var(--paper); }
+  .doc-row .doc-icon{
+    width:46px; height:46px;
     display:flex; align-items:center; justify-content:center;
     border:1px solid var(--navy);
     border-radius:50%;
     color:var(--navy);
     flex:none;
   }
-  .doc-card .doc-icon svg{ width:20px; height:20px; }
-  .doc-card h4{ font-size:1.15rem; color:var(--navy); font-weight:600; }
-  .doc-card p{ margin:0; font-size:.9rem; color:var(--ink-soft); flex:1; }
-  .doc-card .doc-status{
+  .doc-row .doc-icon svg{ width:20px; height:20px; }
+  .doc-row .doc-body{ flex:1; min-width:0; }
+  .doc-row h4{ font-size:1.14rem; color:var(--navy); font-weight:600; }
+  .doc-row p{ margin:4px 0 0; font-size:.9rem; color:var(--ink-soft); }
+  .doc-row .doc-meta{
+    display:flex; align-items:center; gap:22px; flex:none;
+  }
+  .doc-row .doc-status{
     font-family:'Cormorant SC','Cormorant Garamond',serif;
     text-transform:uppercase; letter-spacing:.14em; font-size:.72rem;
-    font-weight:600;
+    font-weight:600; white-space:nowrap;
   }
-  .doc-card.is-pending{
-    background:transparent;
-    border-style:dashed;
-    border-color:rgba(108,74,47,.4);
-  }
-  .doc-card.is-pending .doc-icon{ border-color:rgba(108,74,47,.5); color:var(--sepia); }
-  .doc-card.is-pending .doc-status{ color:var(--sepia); }
-  .doc-card.is-ready .doc-status{ color:#3c5341; }
-  .doc-card .doc-link{
+  .doc-row.is-pending .doc-icon{ border-color:rgba(108,74,47,.5); color:var(--sepia); border-style:dashed; }
+  .doc-row.is-pending .doc-status{ color:var(--sepia); }
+  .doc-row.is-ready .doc-status{ color:#3c5341; }
+  .doc-row .doc-link{
     display:inline-flex; align-items:center; gap:8px;
     font-size:.86rem; font-weight:600; color:var(--navy);
     border-bottom:1px solid var(--gold); padding-bottom:2px;
-    width:fit-content;
+    white-space:nowrap;
   }
-  .doc-card .doc-link:hover{ color:var(--sepia); }
+  .doc-row .doc-link:hover{ color:var(--sepia); }
 
   /* ---------- Note / placeholder card ---------- */
   .note-card{
@@ -441,6 +441,8 @@
     .founder-portrait{ max-width:320px; margin:0 auto; }
     .padrino-grid{ grid-template-columns:1fr; gap:40px;}
     .gallery-grid{ grid-template-columns:1fr 1fr; }
+    .doc-row{ align-items:flex-start; flex-wrap:wrap; gap:14px 24px; }
+    .doc-row .doc-meta{ flex-direction:row; margin-left:70px; }
     .contact-grid{ grid-template-columns:1fr; gap:40px;}
     .footer-grid{ grid-template-columns:1fr 1fr; }
     .infostrip .wrap{ grid-template-columns:1fr; }
@@ -453,6 +455,8 @@
     .footer-grid{ grid-template-columns:1fr; padding-bottom:20px;}
     .hero-content{ padding-top:100px; }
     .padrino-card{ padding:34px 24px; }
+    .doc-row{ flex-direction:column; align-items:flex-start; gap:12px; padding:22px 4px; }
+    .doc-row .doc-meta{ margin-left:0; flex-direction:row; width:100%; justify-content:space-between; align-items:center; }
   }
 </style>
 </head>
@@ -645,37 +649,62 @@
       <h2>Documentos</h2>
       <div class="rule"></div>
     </div>
-    <div class="doc-grid">
-      <div class="doc-card is-ready">
+    <div class="doc-list">
+      <div class="doc-row is-ready">
         <span class="doc-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
         </span>
-        <h4>Acta de Constitución</h4>
-        <p>Acta N.º 1 de la Asamblea General de Constitución, La Dorada, Caldas — 10 de diciembre de 2024.</p>
-        <span class="doc-status">PDF · 900 KB</span>
-        <a class="doc-link" href="assets/docs/acta-de-constitucion.pdf" target="_blank" rel="noopener">Descargar documento ↓</a>
+        <div class="doc-body">
+          <h4>Acta de Constitución</h4>
+          <p>Acta N.º 1 de la Asamblea General de Constitución, La Dorada, Caldas — 10 de diciembre de 2024.</p>
+        </div>
+        <div class="doc-meta">
+          <span class="doc-status">PDF · 900 KB</span>
+          <a class="doc-link" href="assets/docs/acta-de-constitucion.pdf" target="_blank" rel="noopener">Descargar ↓</a>
+        </div>
       </div>
-      <div class="doc-card is-ready">
+      <div class="doc-row is-ready">
         <span class="doc-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
         </span>
-        <h4>Certificado de Existencia y Representación Legal</h4>
-        <p>Expedido por la Cámara de Comercio de La Dorada, Puerto Boyacá, Puerto Salgar y Oriente de Caldas — NIT 901.906.280-3.</p>
-        <span class="doc-status">PDF · 3.9 MB</span>
-        <a class="doc-link" href="assets/docs/certificado-camara-de-comercio.pdf" target="_blank" rel="noopener">Descargar documento ↓</a>
+        <div class="doc-body">
+          <h4>Certificado de Existencia y Representación Legal</h4>
+          <p>Expedido por la Cámara de Comercio de La Dorada, Puerto Boyacá, Puerto Salgar y Oriente de Caldas — NIT 901.906.280-3.</p>
+        </div>
+        <div class="doc-meta">
+          <span class="doc-status">PDF · 3.9 MB</span>
+          <a class="doc-link" href="assets/docs/certificado-camara-de-comercio.pdf" target="_blank" rel="noopener">Descargar ↓</a>
+        </div>
       </div>
-      <div class="doc-card is-ready">
+      <div class="doc-row is-ready">
         <span class="doc-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
         </span>
-        <h4>Estatutos de la Fundación</h4>
-        <p>Documento constitutivo que rige la organización, su objeto social y sus órganos de administración.</p>
-        <span class="doc-status">PDF · 8.6 MB</span>
-        <a class="doc-link" href="assets/docs/estatutos.pdf" target="_blank" rel="noopener">Descargar documento ↓</a>
+        <div class="doc-body">
+          <h4>Estatutos de la Fundación</h4>
+          <p>Documento constitutivo que rige la organización, su objeto social y sus órganos de administración.</p>
+        </div>
+        <div class="doc-meta">
+          <span class="doc-status">PDF · 8.6 MB</span>
+          <a class="doc-link" href="assets/docs/estatutos.pdf" target="_blank" rel="noopener">Descargar ↓</a>
+        </div>
+      </div>
+      <div class="doc-row is-ready">
+        <span class="doc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        </span>
+        <div class="doc-body">
+          <h4>Estados Financieros</h4>
+          <p>Balance de apertura, certificación del representante legal y contador público, y acta de aprobación — a 17 de enero de 2025.</p>
+        </div>
+        <div class="doc-meta">
+          <span class="doc-status">PDF · 160 KB</span>
+          <a class="doc-link" href="assets/docs/estados-financieros.pdf" target="_blank" rel="noopener">Descargar ↓</a>
+        </div>
       </div>
     </div>
-    <div>
-      
+    <div class="note-card">
+      <strong>Documentos oficiales.</strong> Estos archivos se publican para consulta pública en ejercicio de la transparencia de la Fundación.
     </div>
   </div>
 </section>
@@ -733,7 +762,7 @@
   </div>
   <div class="wrap footer-bottom">
     <span>© 2026 Fundación Hogar de Paso Padre Daniel María López Rodríguez</span>
-    
+    <span></span>
   </div>
 </footer>
 
